@@ -38,7 +38,7 @@ export const Logo: React.FC<LogoProps> = ({
       >
         {!imageError ? (
           <img
-            src="/logo.png"
+            src="./logo.png"
             alt="MindEase Stress Relief Logo"
             className="w-full h-full object-cover object-center"
             referrerPolicy="no-referrer"
