@@ -1,0 +1,63 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile with authentication and mental wellbeing configuration",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Unique Firebase Authentication user ID" },
+        "name": { "type": "string", "description": "Full name of user" },
+        "email": { "type": "string", "description": "Email address" },
+        "photoURL": { "type": "string", "description": "Profile picture URL" },
+        "role": { "type": "string", "enum": ["USER", "ADMIN"], "description": "Role permissions" },
+        "emergencyPhone": { "type": "string", "description": "Emergency contact telephone number" },
+        "city": { "type": "string", "description": "User city" },
+        "country": { "type": "string", "description": "User country" },
+        "createdAt": { "type": "string", "description": "ISO timestamp" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Assessment": {
+      "title": "Assessment",
+      "description": "Acoustic voice stress assessment report",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Assessment document ID" },
+        "userId": { "type": "string", "description": "Owner user UID" },
+        "stressScore": { "type": "number", "description": "Calculated stress score from 0 to 100" },
+        "stressCategory": { "type": "string", "enum": ["NORMAL", "MILD", "MODERATE", "HIGH"], "description": "Stress classification" },
+        "createdAt": { "type": "string", "description": "ISO timestamp" },
+        "audioDurationSec": { "type": "number", "description": "Duration of voice check-in" }
+      },
+      "required": ["id", "userId", "stressScore", "stressCategory"]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "Multi-turn Gemini chat conversation item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Message identifier" },
+        "userId": { "type": "string", "description": "Owner user UID" },
+        "role": { "type": "string", "enum": ["user", "model", "system"], "description": "Sender role" },
+        "content": { "type": "string", "description": "Message text content" },
+        "model": { "type": "string", "description": "Gemini model used" },
+        "timestamp": { "type": "string", "description": "ISO timestamp of creation" }
+      },
+      "required": ["id", "userId", "role", "content"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Top-level collection for user documents where document ID is equal to auth UID"
+    },
+    "/users/{userId}/assessments/{assessmentId}": {
+      "schema": "Assessment",
+      "description": "Sub-collection of user stress assessment history"
+    },
+    "/users/{userId}/chatMessages/{messageId}": {
+      "schema": "ChatMessage",
+      "description": "Sub-collection of multi-turn chat messages with Gemini assistant"
+    }
+  }
+}

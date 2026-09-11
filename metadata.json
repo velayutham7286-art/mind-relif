@@ -1,0 +1,11 @@
+{
+  "name": "Remix Remix Remix Mind Ease",
+  "description": "Voice stress identification and mental wellbeing platform featuring acoustic voice analysis, speech biomarker tracking, and personalized grounding exercises.",
+  "requestFramePermissions": [
+    "microphone",
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
